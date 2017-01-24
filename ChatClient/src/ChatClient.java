@@ -4,6 +4,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.Socket;
+import java.util.Properties;
 
 //todo Добавить диалоговое окно, спрашивающее имя пользователя
 //todo Добавить отображение имён пользователей в чате
@@ -87,8 +88,10 @@ public class ChatClient extends JFrame implements Runnable {
     }
 
     public static void main(String[] args) throws IOException {
-        String host = "localhost";
-        String port = "8082";
+        Properties properties = new Properties();
+        properties.load(new FileInputStream("connection.properties"));
+        String host = properties.getProperty("host");
+        String port = properties.getProperty("port");
 
         Socket socket = new Socket(host, Integer.parseInt(port));
         DataInputStream dis;

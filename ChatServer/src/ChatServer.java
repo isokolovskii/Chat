@@ -1,6 +1,8 @@
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Properties;
 
 @SuppressWarnings("WeakerAccess")
 public class ChatServer {
@@ -21,8 +23,10 @@ public class ChatServer {
         }
     }
 
-    public static void main(String[] args) {
-        String port = "8082";
+    public static void main(String[] args) throws IOException {
+        Properties properties = new Properties();
+        properties.load(new FileInputStream("connection.properties"));
+        String port = properties.getProperty("port");
         System.out.println("Server started");
         new ChatServer(Integer.parseInt(port));
     }
