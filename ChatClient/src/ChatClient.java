@@ -6,6 +6,18 @@ import java.io.*;
 import java.net.Socket;
 import java.util.Properties;
 
+/** Класс клиентского приложения. Наследуется от {@link JFrame} и реализует интерфейс {@link Runnable} для работы с
+ * многопоточностью
+ *
+ * @author Ivan Sokolovskiy
+ *
+ * @version 1.0
+ *
+ * @since Version 1.0
+ *
+ * @see JFrame
+ * @see Runnable
+ */
 //todo Добавить диалоговое окно, спрашивающее имя пользователя
 //todo Добавить отображение имён пользователей в чате
 //todo Отображение имени пользователя когда он заходит в чат
@@ -13,6 +25,10 @@ import java.util.Properties;
 @SuppressWarnings("WeakerAccess")
 public class ChatClient extends JFrame implements Runnable {
 
+    /**
+     * @see JTextArea
+     * @see JTextField
+     */
     protected final Socket socket;
     protected final DataInputStream inStream;
     protected final DataOutputStream outStream;
@@ -20,6 +36,21 @@ public class ChatClient extends JFrame implements Runnable {
     protected final JTextField inTextField;
     protected boolean isOn;
 
+    /**
+     * Конструктор класса. Получаем на вход название окна, сокет соединения, входной и выходной поток данных.
+     *
+     * @param tittle Название окна. См. также {@link JFrame#title}
+     * @param s Сокет соединения с сервером
+     * @param in Входной поток данных
+     * @param out Выходной поток данных
+     *
+     * @since Version 1.0
+     *
+     * @see Socket
+     * @see JFrame
+     * @see DataInputStream
+     * @see DataOutputStream
+     */
     public ChatClient(String tittle, Socket s, DataInputStream in, DataOutputStream out) {
         super(tittle);
         socket = s;
@@ -68,6 +99,14 @@ public class ChatClient extends JFrame implements Runnable {
         (new Thread(this)).start();
     }
 
+    /**
+     * Запускает процесс общение приложения с сервером
+     *
+     * @since Version 1.0
+     *
+     * @see Runnable
+     * @see Runnable#run()
+     */
     @Override
     public void run() {
         isOn = true;
@@ -87,6 +126,20 @@ public class ChatClient extends JFrame implements Runnable {
         }
     }
 
+    /** Входная точка программы. Создает соединение с сервером, создаёт окно приложения. Запускает приложение.
+     *
+     * @param args Аргументы командной строки. В программе не используются.
+     *
+     * @throws IOException Исключение возникает в случае отсутствия соединения с сервером.
+     *
+     * @since Version 1.0
+     *
+     * @see IOException
+     * @see Socket
+     * @see Properties
+     * @see DataInputStream
+     * @see DataOutputStream
+     */
     public static void main(String[] args) throws IOException {
         Properties properties = new Properties();
         properties.load(new FileInputStream("connection.properties"));

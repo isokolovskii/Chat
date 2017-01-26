@@ -57,7 +57,7 @@ fabric.properties
 hs_err_pid*
 
 # Local jar build #
- /artifacts/*
+/jar
 
 # Specific local personal info #
 connection.properties
