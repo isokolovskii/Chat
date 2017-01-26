@@ -2,7 +2,7 @@
   <artifact type="jar" build-on-make="true" name="ChatClient:jar">
     <output-path>$PROJECT_DIR$/jar/</output-path>
     <root id="archive" name="ChatClient.jar">
-      <element id="module-output" name="ChatClient" />
+      <element id="module-output" name="Client" />
     </root>
   </artifact>
 </component>
