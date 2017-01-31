@@ -12,6 +12,8 @@
       <list>
         <option value="$PROJECT_DIR$/ChatClient/pom.xml" />
         <option value="$PROJECT_DIR$/ChatServer/pom.xml" />
+        <option value="$PROJECT_DIR$/Server/pom.xml" />
+        <option value="$PROJECT_DIR$/Client/pom.xml" />
       </list>
     </option>
   </component>

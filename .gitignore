@@ -58,3 +58,6 @@ hs_err_pid*
 
 # Local jar build #
 /jar
+
+# Applications properties #
+settings.properties

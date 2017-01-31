@@ -15,7 +15,6 @@ import java.util.Properties;
  *
  * @see ChatHandler
  */
-@SuppressWarnings("WeakerAccess")
 public class ChatServer {
 
     /**
@@ -30,7 +29,7 @@ public class ChatServer {
      * @see Socket
      * @see ChatHandler
      */
-    public ChatServer(int port) {
+        private ChatServer(int port) {
 
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             //noinspection InfiniteLoopStatement

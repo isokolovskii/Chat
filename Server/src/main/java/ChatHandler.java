@@ -16,15 +16,14 @@ import java.util.List;
  * @see java.lang.Thread
  * @see ChatServer
  */
-@SuppressWarnings("WeakerAccess")
 public class ChatHandler extends Thread {
 
-    protected final Socket socket;
-    protected DataInputStream inStream;
-    protected DataOutputStream outStream;
-    protected boolean isOn;
+    private final Socket socket;
+    private DataInputStream inStream;
+    private DataOutputStream outStream;
+    private boolean isOn;
 
-    protected static final List<ChatHandler> handlers = Collections.synchronizedList(new ArrayList<ChatHandler>());
+    private static final List<ChatHandler> handlers = Collections.synchronizedList(new ArrayList<ChatHandler>());
 
     /**
      * Конструктор класса ChatHandler. Получает сокет, открытый в классе {@link ChatServer}. Создаёт потоки ввода и
@@ -42,7 +41,7 @@ public class ChatHandler extends Thread {
      * @see DataOutputStream
      * @see Socket
      */
-    public ChatHandler(Socket s) throws IOException {
+    ChatHandler(Socket s) throws IOException {
         socket = s;
         inStream = new DataInputStream(new BufferedInputStream(s.getInputStream()));
         outStream = new DataOutputStream(new BufferedOutputStream(s.getOutputStream()));
