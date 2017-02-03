@@ -16,7 +16,7 @@ import java.util.List;
  * @see java.lang.Thread
  * @see ChatServer
  */
-public class ChatHandler extends Thread {
+class ChatHandler extends Thread {
 
     private final Socket socket;
     private DataInputStream inStream;

@@ -20,7 +20,7 @@ import java.util.Properties;
  * @see Runnable
  */
 
-public class ChatClient extends JFrame implements Runnable {
+class ChatClient extends JFrame implements Runnable {
 
     /**
      * @see JTextArea
@@ -124,7 +124,6 @@ public class ChatClient extends JFrame implements Runnable {
                 try {
                     if (propFile.createNewFile()) {
                         properties.store(new FileOutputStream(propFile), "Application properties");
-                        System.out.println(properties.elements());
                     }
                 } catch (IOException e1) {
                     System.err.println("Error while saving settings");
@@ -202,6 +201,10 @@ public class ChatClient extends JFrame implements Runnable {
         (new Thread(this)).start();
     }
 
+    /**
+     * Устанавливает переданный набор свойств как основной набор данного приложения
+     * @param properties свойства приложения
+     */
     void setProperties(Properties properties) {
         String oldName;
         String newName;

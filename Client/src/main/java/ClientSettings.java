@@ -5,9 +5,16 @@ import java.awt.event.WindowEvent;
 import java.util.Properties;
 
 /**
- * Created by Ivan on 31.01.17, 10:11.
- * Created in package PACKAGE_NAME
- * Project Chat
+ * Окно настроек клиентского приложения
+ *
+ * @author Ivan Sokolovskiy
+ *
+ * @since Version 1.1
+ *
+ * @version 1.1
+ *
+ * @see ChatClient
+ * @see JFrame
  */
 class ClientSettings extends JFrame {
 
@@ -16,6 +23,16 @@ class ClientSettings extends JFrame {
     private final JTextField portField;
     private Properties localProperties;
 
+    /**
+     * Конструктор окна настроек
+     *
+     * @param parentFrame Окно-родитель, создавший данное
+     * @param title Заголовок окна
+     * @param properties Свойства приложения
+     * @param isConnected Флаг, говорящий о том находится ли приложение в состоянии соединения
+     *                    с сервером
+     * @throws HeadlessException Исключение, идущее от класса-родителя
+     */
     ClientSettings(JFrame parentFrame, String title, Properties properties, boolean isConnected) throws
             HeadlessException {
         super(title);
