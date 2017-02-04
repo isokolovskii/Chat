@@ -25,6 +25,9 @@ class ChatClient extends JFrame implements Runnable {
     /**
      * @see JTextArea
      * @see JTextField
+     * @see Socket
+     * @see DataInputStream
+     * @see DataOutputStream
      */
     private Socket socket;
     private DataInputStream inStream;
@@ -45,6 +48,10 @@ class ChatClient extends JFrame implements Runnable {
      * @see JFrame
      * @see DataInputStream
      * @see DataOutputStream
+     * @see JScrollPane
+     * @see WindowAdapter
+     * @see java.awt.event.ActionListener
+     * @see WindowEvent
      */
     private ChatClient() {
         super("Chat");
@@ -144,9 +151,11 @@ class ChatClient extends JFrame implements Runnable {
                 try {
                     inStream = new DataInputStream(socket.getInputStream());
                     outStream = new DataOutputStream(socket.getOutputStream());
+                    outStream.writeUTF("Connected: " + properties.getProperty("username"));
                     super.setTitle("Chat " + host + ":" + port);
                     inTextField.setEnabled(true);
                     isConnected = true;
+                    (new Thread(this)).start();
                 } catch (IOException e1) {
                     System.err.println("Error getting streams from server");
                     try {
@@ -198,7 +207,7 @@ class ChatClient extends JFrame implements Runnable {
         setSize(600, 600);
         setVisible(true);
         inTextField.requestFocus();
-        (new Thread(this)).start();
+        inTextField.setEnabled(false);
     }
 
     /**
@@ -248,12 +257,13 @@ class ChatClient extends JFrame implements Runnable {
             }
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Left chat server");
+            //e.printStackTrace();
         }
-        finally {
-            inTextField.setVisible(false);
-            validate();
-        }
+//        finally {
+//            inTextField.setVisible(false);
+//            validate();
+//        }
     }
 
     /** Входная точка программы. Создает соединение с сервером, создаёт окно приложения. Запускает приложение.

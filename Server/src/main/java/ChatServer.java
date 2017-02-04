@@ -120,6 +120,7 @@ class ChatServer extends Thread {
             System.err.println("Error loading config file");
             e.printStackTrace();
         }
+        System.out.println("Server started");
         new ChatServer(Integer.parseInt(properties.getProperty("port")));
     }
 }

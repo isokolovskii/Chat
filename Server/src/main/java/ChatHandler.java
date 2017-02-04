@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @since Version 1.0
  *
- * @version 1.0
+ * @version 1.1
  *
  * @see java.lang.Thread
  * @see ChatServer
@@ -22,6 +22,7 @@ class ChatHandler extends Thread {
     private DataInputStream inStream;
     private DataOutputStream outStream;
     private boolean isOn;
+    private String username;
 
     private static final List<ChatHandler> handlers = Collections.synchronizedList(new ArrayList<ChatHandler>());
 
@@ -63,10 +64,15 @@ class ChatHandler extends Thread {
             handlers.add(this);
             while (isOn) {
                 String msg = inStream.readUTF();
+                if (msg.split("#").length == 1) {
+                    String[] parts = msg.split(" ");
+                    username = parts[parts.length - 1];
+                }
                 broadcast(msg);
             }
         } catch (IOException e) {
-            System.out.println("User left");
+            broadcast(username + " left chat.");
+            System.out.println(username + " " + socket.getInetAddress() + " disconnected");
         } finally {
             handlers.remove(this);
             try {
