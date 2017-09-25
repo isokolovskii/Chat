@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Класс обработки соединения пользователя с сервером. Наследуется от класса {@link Thread}
+ * Incoming connection handler. Extends {@link Thread} class.
  *
  * @author Ivan Sokolovskiy
  *
@@ -20,19 +20,20 @@ class ChatHandler extends Thread {
 
     private final Socket socket;
     private DataInputStream inStream;
-    private DataOutputStream outStream;
+    private final DataOutputStream outStream;
     private boolean isOn;
     private String username;
 
     private static final List<ChatHandler> handlers = Collections.synchronizedList(new ArrayList<ChatHandler>());
 
     /**
-     * Конструктор класса ChatHandler. Получает сокет, открытый в классе {@link ChatServer}. Создаёт потоки ввода и
-     * вывода {@link ChatHandler#inStream} и {@link ChatHandler#outStream}.
+     * ChatHandler constructor. Gets socket, opened in {@link ChatServer}.
+     * Creates data stream for input and output:
+     * {@link ChatHandler#inStream} and {@link ChatHandler#outStream}.
      *
-     * @param s Сокет, по которому осуществляется подключение
+     * @param s Socket of a connection
      *
-     * @throws IOException Исключения может возникнуть в процессе получение вхожного и выходного потока данных у сокета
+     * @throws IOException Exception thrown while getting streams from opened socket.
      *
      * @since Version 1.0
      *
@@ -49,7 +50,7 @@ class ChatHandler extends Thread {
     }
 
     /**
-     * Запускает процесс обработки соединения с пользователем
+     * Starts the connection handling process.
      *
      * @since Version 1.0
      *
@@ -90,15 +91,14 @@ class ChatHandler extends Thread {
     }
 
     /**
-     * Отправляет сообщение, полученное от пользователя остальным участником чата.
+     * Sends message of one user to all others connected
      *
-     * @param message Сообщение, которое было получено сервером и необходимое для отправки остальным пользователям
+     * @param message Message got from user
      *
      * @since Version 1.0
      *
      * @see ChatServer
      */
-    @SuppressWarnings("SynchronizeOnNonFinalField")
     private void broadcast(String message) {
         synchronized (handlers) {
             for (ChatHandler handler : handlers) {
